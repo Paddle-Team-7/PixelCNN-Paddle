@@ -85,6 +85,6 @@ python train.py
 │   ├── convolution.py
 │   ├── train.py
 │   ├── trainer.py
-├── ReadMe.md
+├── README.md
 └── requirements.txt
 ```
