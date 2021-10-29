@@ -24,7 +24,7 @@ In training, set batch size to 16.
 
 | Index | Raw Paper| Reference Code | Reproduction |
 | --- | --- | --- | --- |
-| NLL| 81.30 | 85.74 | 86.21587269287109 |
+| NLL| 81.30 | 85.74 | 86.16120842285156 |
 
 ## Reprod Log
 Based on 'reprod_log' model, the following documents are produced.
