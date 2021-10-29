@@ -8,7 +8,7 @@ This is an unofficial Paddle implementation of [PixelCNN](https://arxiv.org/pdf/
 3. [Reprod_Log](#reprod-log)
 4. [Dataset](#dataset)
 5. [Environment](#environment)
-6. [Train](#train)
+6. [Train & Test](#train&test)
 7. [Test](#test)
 8. [Code Structure](#code-structure)
 
@@ -63,13 +63,11 @@ The authors use MNIST dataset, and it will be auto-download when users training.
 * [Pillow](https://pillow.readthedocs.io/en/latest/index.html) (7.2.0)
 
 
-## Train
+## Train & Test
 
 ```
 python train.py
 ```
-
-## Test
 
 
 
