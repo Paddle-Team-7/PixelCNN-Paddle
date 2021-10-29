@@ -63,9 +63,6 @@ The authors use MNIST dataset, and it will be auto-download when users training.
 
 ## Train
 
-
-### Gaussian noise
-The noise parameter is the maximum standard deviation σ.
 ```
 python train.py
 ```
