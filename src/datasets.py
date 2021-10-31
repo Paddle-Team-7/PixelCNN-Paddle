@@ -14,7 +14,6 @@ from paddle.vision import transforms
 
 
 def _dynamically_binarize(x):
-    #return distribution.Bernoulli(probs=x).sample()
     return paddle.bernoulli(x)
 
 def _resize_to_32(x):
@@ -39,15 +38,11 @@ def get_mnist_loaders(batch_size, dynamically_binarize=False, resize_to_32=False
     transform = transforms.Compose(transform)
     train_loader = paddle.io.DataLoader(
         datasets.MNIST(mode='train', transform=transform),
-        #datasets.MNIST(mode='train', download=True),
         batch_size=batch_size,
         shuffle=True,
-        #num_workers=os.cpu_count(),
     )
     test_loader = paddle.io.DataLoader(
         datasets.MNIST(mode='test', transform=transform),
-        #datasets.MNIST(mode='test', download=True),
         batch_size=batch_size,
-        #num_workers=os.cpu_count(),
     )
     return train_loader, test_loader
