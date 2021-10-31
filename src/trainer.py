@@ -1,4 +1,4 @@
-"""Utilities to train PyTorch models with less boilerplate."""
+"""Utilities to train Paddle models with less boilerplate."""
 
 import collections
 import glob
@@ -9,10 +9,7 @@ import time
 
 import paddle
 from paddle import nn
-#from paddle.nn import parallel
 from paddle.nn import utils
-
-# from paddle.utils import tensorboard
 
 
 class Trainer:
@@ -84,15 +81,6 @@ class Trainer:
             msg = "sample_fn cannot be None if sample_epochs is not None"
             assert self.sample_fn, msg
 
-        # self.device = "cuda" if n_gpus > 0 else "cpu"
-        # self.device_id = 0 if device_id is None and n_gpus == 1 else device_id
-        # model = model.to(self.device)
-        # if n_gpus > 1:
-        #     assert device_id is not None, "'device_id' must be provided if n_gpus > 1."
-        #     model = parallel.DistributedDataParallel(
-        #         model, device_ids=[self.device_id], output_device=self.device_id
-        #     )
-
         # Trainer state saved during checkpointing.
         self.model = model
         self.optimizer = optimizer
@@ -153,27 +141,12 @@ class Trainer:
         if self.lr_scheduler is not None:
             self.lr_scheduler.set_state_dict(checkpoint["lr_scheduler"])
 
-        # NOTE(eugenhotaj): We need to replace the SummaryWriter and ensure any
-        # logs written after the last saved checkpoint are purged.
-        #self._summary_writer.close()
-        # self._summary_writer = tensorboard.SummaryWriter(
-        #     self.log_dir, max_queue=100, purge_step=self._step
-        # )
-
     def _get_metrics_dict(self, loss_or_metrics):
         metrics = loss_or_metrics
         if not isinstance(metrics, dict):
             metrics = {"loss": metrics}
         assert "loss" in metrics, 'Metrics dictionary does not contain "loss" key.'
         return metrics
-
-    # TODO(eugenhotaj): Consider removing the 'training' argument and just using
-    # self.model.parameters().training.
-    # def _log_metrics(self, metrics, training):
-    #     for key, metric in metrics.items():
-    #         self._summary_writer.add_scalars(
-    #             f"metrics/{key}", {"train" if training else "eval": metric}, self._step
-    #         )
 
     def train_one_batch(self, x, y):
         """Trains the model on a single batch of examples.
@@ -185,9 +158,6 @@ class Trainer:
 
     def _train_one_batch(self, x, y):
         self.model.train()
-        # x = x.to(self.device)
-        # if y is not None:
-        #     y = y.to(self.device)
         self.optimizer.clear_grad()
         metrics = self._get_metrics_dict(self.train_one_batch(x, y))
         metrics["loss"].backward()
@@ -217,9 +187,6 @@ class Trainer:
     def _eval_one_batch(self, x, y):
         with paddle.no_grad():
             self.model.eval()
-            # x = x.to(self.device)
-            # if y is not None:
-            #     y = y.to(self.device)
             metrics = self._get_metrics_dict(self.eval_one_batch(x, y))
             return {k: v.item() for k, v in metrics.items()}
 
@@ -246,11 +213,6 @@ class Trainer:
                 # print(batch)
                 x, y = batch
                 self._examples_processed += x.shape[0]
-                # lrs = {
-                #     f"group_{i}": param["lr"]
-                #     for i, param in enumerate(self.optimizer.param_groups)
-                # }
-                #self._summary_writer.add_scalars("metrics/lr", lrs, self._step)
                 metrics = self._train_one_batch(x, y)
                 if i % 100 ==0:
                     print(metrics)
@@ -258,18 +220,6 @@ class Trainer:
 
                 self._time_taken += time.time() - start_time
                 start_time = time.time()
-                # self._summary_writer.add_scalar(
-                #     "speed/examples_per_sec",
-                #     self._examples_processed / self._time_taken,
-                #     self._step,
-                # )
-                # self._summary_writer.add_scalar(
-                #     "speed/millis_per_example",
-                #     self._time_taken / self._examples_processed * 1000,
-                #     self._step,
-                # )
-                # self._summary_writer.add_scalar("speed/epoch", self._epoch, self._step)
-                # self._summary_writer.add_scalar("speed/step", self._step, self._step)
                 self._step += 1
 
 
@@ -299,6 +249,3 @@ class Trainer:
                 self.model.eval()
                 with paddle.no_grad():
                     tensor = self.sample_fn(self.model)
-                #self._summary_writer.add_images("sample", tensor, self._step)
-
-        #self._summary_writer.close()
