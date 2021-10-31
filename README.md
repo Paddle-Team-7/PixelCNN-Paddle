@@ -20,7 +20,7 @@ This is an unofficial Paddle implementation of [PixelCNN](https://arxiv.org/pdf/
 
 
 ## Reproduction Accuracy
-In training, set batch size to 16.
+In training, set batch size to 256.
 
 | Index | Raw Paper| Reference Code | Reproduction |
 | --- | --- | --- | --- |
