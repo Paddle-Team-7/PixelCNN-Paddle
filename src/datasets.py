@@ -1,4 +1,4 @@
-"""Extra generative modeling benchmark datasets not provided by PyTorch."""
+"""Extra generative modeling benchmark datasets not provided by Paddle."""
 
 import os
 import urllib
@@ -8,12 +8,6 @@ import numpy as np
 import paddle
 from paddle import distribution
 from paddle.nn import functional as F
-
-#from torch.utils import data
-#from torchvision import datasets
-#from torchvision import transforms
-# from torchvision.datasets import utils
-# from torchvision.datasets import vision
 import paddle.io
 from paddle.vision import datasets
 from paddle.vision import transforms
