@@ -138,7 +138,6 @@ def reproduce(
 
     from paddle import optimizer
     from paddle.nn import functional as F
-    #from torch.optim import lr_scheduler
     from paddle.optimizer import lr
 
     import datasets
@@ -162,12 +161,7 @@ def reproduce(
     scheduler = lr.LambdaDecay(learning_rate=optimizer.get_lr(), lr_lambda = lambda epoch: 0.999977 ** epoch)
     def loss_fn(x, _, preds):
         batch_size = x.shape[0]
-        # print(_.shape)
-        # print(x.shape)
-        # print(preds.shape)
         x, preds = paddle.reshape(x, shape=[batch_size, -1]), paddle.reshape(preds, shape=[batch_size, -1])
-        # print(x.shape)
-        # print(preds)
         loss = F.binary_cross_entropy_with_logits(preds, x, reduction="none")
         return loss.sum(axis=1).mean()
 
