@@ -1,3 +1,0 @@
-[2021/10/29 23:25:52] root INFO: NLL_loss: 
-[2021/10/29 23:25:52] root INFO: 	mean diff: check passed: False, value: 0.260040283203125
-[2021/10/29 23:25:52] root INFO: diff check failed
