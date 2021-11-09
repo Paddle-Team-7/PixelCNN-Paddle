@@ -8,8 +8,7 @@ This is an unofficial Paddle implementation of [PixelCNN](https://arxiv.org/pdf/
 3. [Dataset](#dataset)
 4. [Environment](#environment)
 5. [Train & Test](#train&test)
-6. [Test](#test)
-7. [Code Structure](#code-structure)
+6. [Code Structure](#code-structure)
 
 ## Introduction
 
