@@ -5,12 +5,11 @@ This is an unofficial Paddle implementation of [PixelCNN](https://arxiv.org/pdf/
 ## Contents
 1. [Introduction](#introduction)
 2. [Reproduction Accuracy](#reproduction-accuracy)
-3. [Reprod_Log](#reprod-log)
-4. [Dataset](#dataset)
-5. [Environment](#environment)
-6. [Train & Test](#train&test)
-7. [Test](#test)
-8. [Code Structure](#code-structure)
+3. [Dataset](#dataset)
+4. [Environment](#environment)
+5. [Train & Test](#train&test)
+6. [Test](#test)
+7. [Code Structure](#code-structure)
 
 ## Introduction
 
@@ -25,32 +24,6 @@ In training, set batch size to 256.
 | Index | Raw Paper| Reference Code | Reproduction |
 | --- | --- | --- | --- |
 | NLL| 81.30 | 85.74 | 86.00003680419921 |
-
-## Reprod Log
-Based on 'reprod_log' model, the following documents are produced.
-```
-log_reprod
-├── forward_paddle.npy
-├── forward_torch.npy
-├── metric_paddle.npy
-├── metric_torch.npy
-├── loss_paddle.npy
-├── loss_torch.npy
-├── bp_align_paddle.npy
-├── bp_align_torch.npy
-├── train_align_paddle.npy
-├── train_align_torch.npy
-```
-
-Based on 'ReprodDiffHelper' model, the following five log files are produced.
-
-```
-├── forward_diff.log
-├── metric_diff.log
-├── loss_diff.log
-├── bp_align_diff.log
-├── train_align_diff.log
-```
 
 ## Dataset
 The authors use MNIST dataset, and it will be auto-download when users training.
@@ -75,7 +48,6 @@ python train.py
 
 ```
 ├── ckpts  # pdparams and training logs
-├── log_reprod
 ├── src
 │   ├── pixel_cnn.py
 │   ├── datasets.py
